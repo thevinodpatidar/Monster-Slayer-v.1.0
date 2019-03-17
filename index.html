@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="small-6 columns">
-            <h1 class="text-center">MONSTER</h1>
+            <h1 class="text-center">{{ name }}</h1>
             <div class="healthbar">
                 <div class="healthbar text-center" 
                     style="background-color: green; margin: 0; color: white;"
@@ -31,9 +31,18 @@
         </div>
     </section>
     <section class="row controls" v-if="!gameIsRunning">
-        <div class="small-12 columns">
+        <!-- <div class="small-12 columns">
             <button id="start-game"
             @click="startGame">START NEW GAME</button>
+        </div> -->
+        <div class="small-12 columns">
+            <h3>Choose your Monster</h3>
+            <button class="start-game"
+            @click="startGame" value="Monster 1">MONSTER 1</button>
+            <button class="start-game"
+            @click="startGame" value="Monster 2">MONSTER 2</button>
+            <button class="start-game"
+            @click="startGame" value="BOSS">MONSTER 3</button>
         </div>
     </section>
     <section class="row controls" v-else>

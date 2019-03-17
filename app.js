@@ -1,14 +1,17 @@
+
 new Vue({
     el:'#app',
-    data: {
-        playerHealth: 100,
-        monsterHealth: 100,
-        gameIsRunning: false,
-        turns: []
-    },
+    data: {  
+    name:"Monster",
+    playerHealth: 100,
+    monsterHealth: 100,
+    gameIsRunning: false,
+    turns: []
+},
     methods: {
-        startGame: function(){
+        startGame: function(event){
             this.gameIsRunning = true;
+            this.name = event.target.value;
             this.playerHealth = 100,
             this.monsterHealth = 100
             this.turns = [];
@@ -18,7 +21,7 @@ new Vue({
             this.monsterHealth -= damage;
             this.turns.unshift({
                 isPlayer: true,
-                text: 'Player hits Monster for ' + damage
+                text: 'Player hits '+this.name+' for ' + damage
             })
             if(this.checkWin()){
                 return;
@@ -30,7 +33,7 @@ new Vue({
             this.monsterHealth -= damage;
             this.turns.unshift({
                 isPlayer: true,
-                text: 'Player hits Monster hard for ' + damage
+                text: 'Player hits '+this.name+' hard for ' + damage
             })
             if(this.checkWin()){
                 return;
@@ -59,21 +62,25 @@ new Vue({
         monsterAttack: function(){
             var damage = this.calculateDamage(5,12)
             this.playerHealth -= damage;
-            this.checkWin();
+            
             this.turns.unshift({
                 isPlayer: false,
-                text: 'Monster hits Player for ' + damage
+                text: this.name+ ' hits Player for ' + damage
             })
+            this.checkWin();
         },
         calculateDamage: function(min, max){
             return Math.max(Math.floor(Math.random() * max) + 1, min);
         },
         checkWin: function(){
             if(this.monsterHealth <=0){
-                if(confirm('You Won! New Game?')){
-                    this.startGame();
+                if(confirm('You Won! New Game?')){  
+                    this.giveUp();
+                    this.gameIsRunning = true;
                 }
                 else{
+                    this.monsterHealth =100;
+                    this.playerHealth = 100;
                     this.gameIsRunning = false;
                     this.turns = [];
                 }
@@ -81,9 +88,11 @@ new Vue({
             }
             else if(this.playerHealth <=0){
                 if(confirm('You Lost! New Game?')){
-                    this.startGame();
+                    this.giveUp();
                 } 
                 else{
+                    this.monsterHealth =100;
+                    this.playerHealth = 100;
                     this.gameIsRunning = false;
                     this.turns = [];
                 }

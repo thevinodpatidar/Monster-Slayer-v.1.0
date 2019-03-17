@@ -8,6 +8,7 @@
     background-color: #eee;
     margin: auto;
     transition: width 500ms;
+    border-radius: 5px;
 }
 
 .controls, .log {
@@ -53,11 +54,11 @@ button {
     margin: 10px;
 }
 
-#start-game {
+.start-game {
     background-color: #aaffb0;
 }
 
-#start-game:hover {
+.start-game:hover {
     background-color: #76ff7e;
 }
 
